@@ -1,14 +1,35 @@
 package produtos.models;
 
+import java.util.Date;
+
 public class Produto {
 
     private int id;
     private String descricao;
+    private double preco;
+    private Date dataValidade;
 
+    public double getPreco() {
+        return preco;
+    }
 
-    public Produto(int id, String descricao) {
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+
+    public Date getDataValidade() {
+        return dataValidade;
+    }
+
+    public void setDataValidade(Date dataValidade) {
+        this.dataValidade = dataValidade;
+    }
+
+    public Produto(int id, String descricao, double preco, Date dataValidade) {
         this.id = id;
         this.descricao = descricao;
+        this.preco = preco;
+        this.dataValidade = dataValidade;
     }
 
     public void setId(int id){

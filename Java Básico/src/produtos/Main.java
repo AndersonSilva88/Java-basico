@@ -2,26 +2,59 @@ package produtos;
 
 import produtos.models.Produto;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception{
+        System.out.println("-----PEDIDO DE VENDAS-----");
+        int option;
+        do {
+            System.out.println("1 - Cadastrar produto");
+            System.out.println("0 - Sair");
+            Scanner sc =new Scanner(System.in);
 
-        Scanner sc = new Scanner(System.in);
+            System.out.println("Qual operação você deseja realizar: ");
+            option = sc.nextInt();
+            process(option);
 
-        System.out.println("Digite a descrição do produto: ");
-        String descricao = sc.nextLine();
+        } while(option != 0);
 
-        System.out.println("Digite o ID do produto: ");
-        int id = sc.nextInt();
+    }
 
-        Produto produto = new Produto(id, descricao);
-       // produto.setId(id);
-       // produto.setDescricao(descricao);
+    public static void process(int option) throws Exception{
+        switch(option) {
+            case 1: {
+                Scanner sc = new Scanner(System.in);
 
-        System.out.println("Produto criado com sucesso!!!");
-        System.out.println("--- ID: " + produto.getId());
-        System.out.println("--- Descrição: " + produto.getDescricao());
+                System.out.println("Digite a descrição do produto: ");
+                String descricao = sc.nextLine();
+
+                System.out.println("Digite o ID do produto: ");
+                int id = sc.nextInt();
+
+                System.out.println("Qual o preço: ");
+                double preco = sc.nextDouble();
+
+                System.out.println("Qual a data de validade: ");
+                String dataString = sc.next();
+
+                Date dataValidade = new SimpleDateFormat("dd/MM/yyyy").parse(dataString);
+
+                Produto produto = new Produto(id, descricao, preco, dataValidade);
+                // produto.setId(id);
+                // produto.setDescricao(descricao);
+
+                System.out.println("Produto criado com sucesso!!!");
+                System.out.println("--- ID: " + produto.getId());
+                System.out.println("--- Descrição: " + produto.getDescricao());
+                System.out.println("--- Preço: " + produto.getPreco());
+                System.out.println("--- Data de validade: " + produto.getDataValidade());
+                System.out.println("--------------------------------------");
+
+            }
+        }
     }
 }

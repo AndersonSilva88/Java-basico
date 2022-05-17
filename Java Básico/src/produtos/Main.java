@@ -1,7 +1,11 @@
 package produtos;
 
 import produtos.db.ProdutosDB;
+import produtos.db.UsuariosDB;
+import produtos.models.Admin;
+import produtos.models.Cliente;
 import produtos.models.Produto;
+import produtos.models.Usuario;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,6 +15,7 @@ import java.util.Scanner;
 public class Main {
 
     static ProdutosDB produtosDB = new ProdutosDB();
+    static UsuariosDB usuariosDB = new UsuariosDB();
 
     public static void main(String[] args) throws Exception{
         System.out.println("-----PEDIDO DE VENDAS-----");
@@ -18,6 +23,9 @@ public class Main {
         do {
             System.out.println("1 - Cadastrar produto");
             System.out.println("2 - Listar produtos cadastrados");
+            System.out.println("3 - Cadastrar Usuario ADMINISTRADOR");
+            System.out.println("4 - Cadastrar usuario CLIENTE");
+            System.out.println("5 - Listas todos os USUARIOS");
             System.out.println("0 - Sair");
             Scanner sc =new Scanner(System.in);
 
@@ -75,6 +83,38 @@ public class Main {
                     System.out.println("--- Preço: " + produto.getPreco());
                     System.out.println("--- Data de validade: " + produto.getDataValidade());
                     System.out.println("--------------------------------------");
+                }
+                break;
+            }
+
+            case 3: {
+                Scanner sc = new Scanner(System.in);
+                System.out.println("Qual o nome do usuário do ADMINISTRADOR");
+                String nome = sc.nextLine();
+
+                Admin novoAdmin = new Admin(nome);
+                usuariosDB.addNovoUsuario(novoAdmin);
+                break;
+            }
+
+            case 4: {
+                Scanner sc = new Scanner(System.in);
+                System.out.println("Qual o nome do usuario CLIENTE");
+                String nome = sc.nextLine();
+
+                Cliente novoCliente = new Cliente(nome);
+                usuariosDB.addNovoUsuario(novoCliente);
+                break;
+            }
+            case 5: {
+                System.out.println("-----------------------------------");
+                System.out.println("---LISTANDO USUARIOS CADASTRADOS---");
+                System.out.println("-----------------------------------");
+                for (Usuario usuario: usuariosDB.getUsuarioList()) {
+                    System.out.println("ID: " + usuario.getId());
+                    System.out.println("NOME: " + usuario.getNome());
+                    System.out.println("TIPO: " + usuario.getTipoUsuario());
+                    System.out.println("----------------------------------");
                 }
                 break;
             }

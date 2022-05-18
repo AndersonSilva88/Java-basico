@@ -11,7 +11,36 @@ public class ContaPoupanca extends Conta{
     }
 
     @Override
-    public Double getSaldo() {
-        return this.saldo + this.taxaDeJuros * this.saldo;
+    public double getSaldo(int dia ) {
+        if (dia >= this.dataAniversario){
+            this.saldo = this.taxaDeJuros * this.saldo;
+            return this.saldo;
+        } else {
+            return this.saldo;
+        }
+    }
+
+    @Override
+    public double sacar(double valorSaque) {
+        if (valorSaque <= this.getSaldo()){
+            this.saldo -= valorSaque;
+            System.out.println("Saque realizado: " + valorSaque);
+        } else {
+            System.out.println("Saldo insuficiente");
+        }
+        return saldo;
+    }
+
+    @Override
+    public double depositar(double valorDeposito) {
+        return this.saldo += valorDeposito;
+    }
+
+    @Override
+    public String toString() {
+        return "ContaPoupanca{" +
+                "dataAniversario=" + dataAniversario +
+                ", taxaDeJuros=" + taxaDeJuros +
+                '}';
     }
 }

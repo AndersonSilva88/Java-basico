@@ -1,11 +1,9 @@
 package produtos;
 
+import produtos.db.EstoquesDB;
 import produtos.db.ProdutosDB;
 import produtos.db.UsuariosDB;
-import produtos.models.Admin;
-import produtos.models.Cliente;
-import produtos.models.Produto;
-import produtos.models.Usuario;
+import produtos.models.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,6 +14,7 @@ public class Main {
 
     static ProdutosDB produtosDB = new ProdutosDB();
     static UsuariosDB usuariosDB = new UsuariosDB();
+    static EstoquesDB estoquesDB = new EstoquesDB();
 
     public static void main(String[] args) throws Exception{
         System.out.println("-----PEDIDO DE VENDAS-----");
@@ -26,6 +25,8 @@ public class Main {
             System.out.println("3 - Cadastrar Usuario ADMINISTRADOR");
             System.out.println("4 - Cadastrar usuario CLIENTE");
             System.out.println("5 - Listas todos os USUARIOS");
+            System.out.println("6 - Cadastrar novo ESTOQUE DE PRODUTOS");
+            System.out.println("7 - Listar todos os ESTOQUE");
             System.out.println("0 - Sair");
             Scanner sc =new Scanner(System.in);
 
@@ -117,6 +118,44 @@ public class Main {
                     System.out.println("----------------------------------");
                 }
                 break;
+            }
+            case 6: {
+                Scanner sc = new Scanner(System.in);
+                System.out.println("-----------------------------------");
+                System.out.println("---CADASTRANDO ESTOQUE DE PRODUTO---");
+                System.out.println("-----------------------------------");
+
+                System.out.println("Qual o identificador do estoque: ");
+                String id = sc.next();
+
+                System.out.println("Qual o produto que será adicionado ao estoque(informe o id): ");
+                int produtoId = sc.nextInt();
+
+                Produto produto = produtosDB.getProdutoPorId(produtoId);
+                System.out.println("PRODUTO ID: " + produto.getId());
+                System.out.println("PRODUTO DESCRIÇÃO: " + produto.getDescricao());
+                System.out.println("PRODUTO VALIDADE: " + produto.getDataValidade());
+
+                System.out.println("Qual a quantidade de produtos a ser adicionada em estoque: ");
+                int quantidade = sc.nextInt();
+
+                Estoque novoEstoque = new Estoque(id, produto, quantidade);
+                estoquesDB.addNovoEstoque(novoEstoque);
+                break;
+            }
+
+            case 7: {
+                System.out.println("-----------------------------------");
+                System.out.println("---LISTANDO ESTOQUES CADASTRADOS---");
+                System.out.println("-----------------------------------");
+                for (Estoque estoque : estoquesDB.getEstoques()) {
+                    System.out.println("ID: " + estoque.getId());
+                    System.out.println("NOME: " + estoque.getProduto().getDescricao());
+                    System.out.println("TIPO: " + estoque.getProduto().getPreco());
+                    System.out.println("QUANTIDADE: " + estoque.getQuantidade());
+                    System.out.println("----------------------------------");
+                }
+               break;
             }
         }
     }

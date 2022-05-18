@@ -38,11 +38,21 @@ public abstract class Conta {
         this.nome = nome;
     }
 
-    public abstract Double getSaldo();
+    public double getSaldo() {
+        return this.saldo;
+    }
 
     public void setSaldo(Double saldo) {
         this.saldo = saldo;
     }
+
+    public abstract double getSaldo(int dia);
+
+    public double sacar(double valorSaque) {
+        return valorSaque;
+    }
+
+    public abstract double depositar(double valorDeposito);
 
     @Override
     public String toString() {

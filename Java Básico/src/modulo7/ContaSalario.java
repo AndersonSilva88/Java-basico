@@ -1,7 +1,6 @@
 package modulo7;
 
 public class ContaSalario extends Conta{
-    private double salario;
     private int qtde;
 
     public ContaSalario(int numero, int agencia, String nome, Double saldo, int qtde) {

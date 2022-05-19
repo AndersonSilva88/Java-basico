@@ -14,16 +14,21 @@ public class Main {
         int agencia = sc.nextInt();
 
         System.out.print("Nome do banco: ");
-        String banco = sc.nextLine();
+        String nome = sc.nextLine();
 
         System.out.print("Informe o saldo: ");
         double saldo = sc.nextDouble();
 
-        ContaCorrente cc = new ContaCorrente(numero, agencia, banco, saldo );
+        System.out.println("Informe dia aniversario: ");
+        int dia = sc.nextInt();
+
+        ContaPoupanca cp = new ContaPoupanca(numero, agencia, nome, saldo, dia);
         System.out.println("Realizar saque: " );
         double saque = sc.nextDouble();
-        cc.sacar(saque);
-        System.out.println("saldo atual: " + cc.getSaldo());
+        cp.sacar(saque);
+        System.out.println("saldo atual: " + cp.getSaldo());
+
+
 
 
 

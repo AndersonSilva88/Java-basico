@@ -1,26 +1,33 @@
 package bank;
 
-public class ContaPoupanca extends Conta{
+public class ContaPoupanca extends Conta {
 
-    private int diaAniversario;
-    private double taxaDeJuros;
+    private int diaAniversario = 10;
+    private double taxaDeJuros = 0.05;
 
-    public ContaPoupanca(double numero, int agencia, String nome, double saldo) {
+    public ContaPoupanca(double numero, int agencia, String nome, double saldo, int diaAniversario) {
         super(numero, agencia, nome, saldo);
+        this.diaAniversario = diaAniversario;
     }
 
     @Override
     public double sacar(double valor) {
-        return 0;
+        double  limite = this.saldo;
+        if (valor < limite ){
+                this.saldo -= valor;
+            } else {
+            System.out.println("saldo");
+        }
+        return this.saldo;
     }
 
     @Override
     public double deposito(double valor) {
-        return 0;
+        return this.saldo += valor;
     }
 
     @Override
     public double getSaldo() {
-        return 0;
+         return this.saldo;
     }
 }

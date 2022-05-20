@@ -1,11 +1,11 @@
-package bank;
+package bank.models;
 
-public class ContaCorrente extends Conta implements Tributavel{
+public class ContaCorrente extends Conta implements Tributavel {
 
     private double chequeEspecial = 1000;
 
-    public ContaCorrente(double numero, int agencia, String nome, double saldo) {
-        super(numero, agencia, nome, saldo);
+    public ContaCorrente(double numero, int agencia, String nome, double saldo, Cliente cliente) {
+        super(numero, agencia, nome, saldo, cliente);
     }
 
     @Override
@@ -33,5 +33,12 @@ public class ContaCorrente extends Conta implements Tributavel{
     @Override
     public double getValorimposto() {
         return this.saldo * 0.2;
+    }
+
+    @Override
+    public String toString() {
+        return  "Conta corrente = agência = " + super.getAgencia() + ", número = " + super.getNumero() +
+                ", banco = " + super.getNome() + ", saldo R$ = " + getSaldo() + ", cheque especial R$ = " + chequeEspecial +
+                ", id do cliente = " + getCliente().getId() + ", nome do cliente = " +  getCliente().getNome();
     }
 }

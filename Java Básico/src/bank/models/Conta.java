@@ -1,4 +1,4 @@
-package bank;
+package bank.models;
 
 public abstract class Conta {
 
@@ -6,15 +6,22 @@ public abstract class Conta {
     private int agencia;
     private String nome;
     protected double saldo;
+    private Cliente cliente;
 
     public abstract double sacar(double valor);
     public abstract double deposito(double valor);
 
-    public Conta(double numero, int agencia, String nome, double saldo) {
+    public Conta(double numero, int agencia, String nome, double saldo, Cliente cliente) {
         this.numero = numero;
         this.agencia = agencia;
         this.nome = nome;
         this.saldo = saldo;
+        this.cliente = cliente;
+    }
+
+    public void tranferencia(Conta contaRecebe, Conta contaDebita, double valor) {
+        contaDebita.setSaldo(contaDebita.saldo - valor);
+        contaRecebe.setSaldo(contaRecebe.saldo + valor);
     }
 
     public double getNumero() {
@@ -46,6 +53,14 @@ public abstract class Conta {
 
     public void setSaldo(double saldo) {
         this.saldo = saldo;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
 

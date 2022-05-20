@@ -12,6 +12,7 @@ public class ProdutosDB {
 
     public List<Produto> getProdutoList() {
         List<Produto> produtos = new ArrayList<>();
+
         for (Map.Entry<Integer, Produto> produto : produtoMap.entrySet()) {
             produtos.add(produto.getValue());
         }

@@ -30,11 +30,7 @@ public class Cliente implements Autenticador{
 
     @Override
     public String toString() {
-        return "Cliente{" +
-                "nome='" + nome + '\'' +
-                ", status=" + status +
-                ", senha='" + senha + '\'' +
-                '}';
+        return "Nome = " + nome + " | " +"compras = " + compras ;
     }
 
     @Override

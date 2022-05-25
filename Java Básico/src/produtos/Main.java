@@ -1,11 +1,12 @@
 package produtos;
 
-import jdk.swing.interop.SwingInterOpUtils;
 import produtos.db.EstoquesDB;
 import produtos.db.PedidoVendaDB;
 import produtos.db.ProdutosDB;
 import produtos.db.UsuariosDB;
 import produtos.models.*;
+import produtos.validadores.ValidadorPedidoVenda;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -174,19 +175,26 @@ public class Main {
                 System.out.println("TIPO: " + cliente.getTipoUsuario());
                 System.out.println("---------------------------------------------");
 
-                System.out.println("Informe o ID do produto: ");
-                int idProduto = sc.nextInt();
-                Produto produto = produtosDB.getProdutoPorId(idProduto);
-                System.out.println("PRODUTO ID: " + produto.getId());
-                System.out.println("PRODUTO DESCRIÇÃO: " + produto.getDescricao());
-                System.out.println("PRODUTO VALIDADE: " + produto.getDataValidade());
+                System.out.println("Informe o identificador do estoque: ");
+                String idEstoque = sc.next();
+                Estoque estoque = estoquesDB.getEstoqueById(idEstoque);
+                System.out.println("ESTOQUE ID: " + estoque.getId());
+                System.out.println("PRODUTO DESCRIÇÃO: " + estoque.getProduto().getDescricao());
+                System.out.println("PRODUTO VALIDADE: " + estoque.getProduto().getDataValidade());
                 System.out.println("---------------------------------------------");
 
-                System.out.println("Informe a quantidade: ");
+                System.out.println("Informe a quantidade ser vendida: ");
                 int quantidade = sc.nextInt();
 
-                PedidoVenda novoPedido = new PedidoVenda(cliente, produto, quantidade);
-                pedidoVendaDB.addNovoPedidoVenda(novoPedido);
+                PedidoVenda novoPedido = new PedidoVenda(cliente, estoque, quantidade);
+
+                ValidadorPedidoVenda validadorPedidoVenda = new ValidadorPedidoVenda(novoPedido);
+
+                if (validadorPedidoVenda.ehValido()) {
+                    pedidoVendaDB.addNovoPedidoVenda(novoPedido);
+                } else {
+                    System.out.println(validadorPedidoVenda.getErros());
+                }
 
                 break;
             }
@@ -197,9 +205,9 @@ public class Main {
                 for (PedidoVenda pedidoVenda : pedidoVendaDB.getPedidoVendas()) {
                     System.out.println("ID: " + pedidoVenda.getId());
                     System.out.println("CLIENTE: " + pedidoVenda.getCliente().getNome());
-                    System.out.println("PRODUTO: " + pedidoVenda.getProduto().getDescricao());
-                    System.out.println("TIPO: " + pedidoVenda.getQuantidade());
-                    System.out.println("VALOR TOTAL: " + pedidoVenda.getValorTotal());
+                    System.out.println("PRODUTO: " + pedidoVenda.getEstoque().getProduto().getDescricao());
+                    System.out.println("QUANTIDADE: " + pedidoVenda.getQuantidade());
+//                    System.out.println("VALOR TOTAL: " + pedidoVenda.getValorTotal());
                     System.out.println("----------------------------------");
                 }
                 break;

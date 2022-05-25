@@ -24,6 +24,10 @@ public class EstoquesDB {
         return estoques;
     }
 
+    public Estoque getEstoqueById(String id) {
+        return estoquesDBMap.get(id);
+    }
+
 
     public void addNovoEstoque(Estoque estoque) {
         estoquesDBMap.put(estoque.getId(), estoque);
